@@ -1,7 +1,7 @@
+from __future__ import annotations
 import re
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field, asdict, make_dataclass
 from typing import Any, List, Dict, Optional, Union
-
 pattern: re.Pattern = re.compile(r"(?<!^)(?=[A-Z])")
 
 
@@ -14,7 +14,7 @@ class Image:
     url: Optional[str] = None
     seq: Optional[str] = None
     thumbnail_url: Optional[str] = None
-    path: Optional[str] = None
+    path: Optional[str] = "/"
     workview_url: Optional[str] = None
 
 
@@ -90,19 +90,12 @@ AnnotationData = Union[
 @dataclass
 class Annotation:
     name: str
-    datas: List[AnnotationData] = field(default_factory=List)
 
-    def __getattribute__(self, name: str) -> Any:
-        """Little hack to create a dictionary of <AnnotationData name>:Any instead of returning <data>: List[AnnotationData]. Useful because we use `asdict` from `dataclasses` that converts all dataclass to dict and it uses the `getatrr` method se we need to override this one"""
-        if name == "datas":
-            attr = {
-                pattern.sub("_", d.__class__.__name__).lower(): asdict(d)
-                for d in super().__getattribute__("datas")
-            }
-        else:
-            attr = super().__getattribute__(name)
-
-        return attr
+    def add_data(self, data: AnnotationData) -> Annotation:
+        attr: str = pattern.sub("_", data.__class__.__name__).lower()
+        NewAnnotation =  make_dataclass('Annotation', [(attr, AnnotationData)], bases=(self.__class__,))
+        new_ann = NewAnnotation(**vars(self), **{attr : data})
+        return new_ann
 
 
 @dataclass

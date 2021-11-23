@@ -2,7 +2,7 @@ from ..base import Parser
 from pathlib import Path
 import pickle
 import numpy as np
-from ..dataypes import Annotation, Image, ImageAnnotationFile, Tag
+from ..datatypes import Annotation, Image, ImageAnnotationFile, Tag
 from typing import Any, List, Tuple
 from PIL import Image as PILImage
 from dataclasses import  asdict
@@ -23,9 +23,8 @@ class CIFARParser(Parser):
             ),
             annotations=[
                 Annotation(
-                    name=labels[idx],
-                    datas=[Tag()]
-                )
+                    name=labels[idx]
+                ).add_data(Tag())
             ]
         )
         return ann

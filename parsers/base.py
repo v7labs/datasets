@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any
 from abc import ABC 
-from .dataypes import ImageAnnotationFile
+from .datatypes import ImageAnnotationFile
 import darwin
 import darwin.importer as importer
 from darwin.client import Client
@@ -38,7 +38,7 @@ class Parser(ABC):
             dataset = client.create_dataset(self.dataset_name)
         except darwin.exceptions.NameTaken:
             dataset = client.get_remote_dataset(dataset_identifier)
-        dataset.push(list(self.images_dir.glob("*")))
+        # dataset.push(list(self.images_dir.glob("*")))
         importer.import_annotations(
             dataset,
             formats.darwin.parse_file,

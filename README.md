@@ -22,13 +22,15 @@ Each parse have to return a darwin-json, to make thing easier we create custom t
 
 ```python
 
-from datatypes import *
+from parsers.datatypes import *
 
 ann = ImageAnnotationFile(
     dataset="foo",
     image=Image(width=100, height=100, original_filename="hey", filename="hey"),
     annotations=[
-        Annotation(name="a", datas=[BoundingBox(x=1, y=2, h=10, w=10), Tag()])
+        Annotation(name="a")
+        .add_data(BoundingBox(x=1, y=2, h=10, w=10))
+        .add_data(Tag())
     ],
 )
 
@@ -45,7 +47,7 @@ pprint(asdict(ann))
 ```
 
 ```
-{'annotations': [{'datas': {'bounding_box': {'h': 10, 'w': 10, 'x': 1, 'y': 2},
+{'annotations': [{'bounding_box': {'h': 10, 'w': 10, 'x': 1, 'y': 2},
                             'tag': {}},
                   'name': 'a'}],
  'dataset': 'foo',

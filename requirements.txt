@@ -1,1 +1,2 @@
-jschon
+darwin-py
+tqdm
