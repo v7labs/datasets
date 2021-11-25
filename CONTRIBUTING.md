@@ -20,3 +20,6 @@ To contribute with a new dataset you'll have to make a pull request (PR). Each d
 - `README.py` explain how to get the dataset and how to run the parser
 
 We highly encourage to use [types](https://docs.python.org/3/library/stdtypes.html)
+
+
+**Check out [this example](https://github.com/v7labs/datasets/tree/main/parsers/cifar)**

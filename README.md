@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 ## Writing a Parser
 
-We provide several utilities to write a sharable parser. \*You'll have to subclass parses.Parser`. An example is provided at `parsers.cifar10`. Before contributing please read the [contributing guide](CONTRIBUTING.md).
+We provide several utilities to write a sharable parser. **You'll have to subclass `parses.Parser`. An example is provided at `parsers.cifar10`. Before contributing please read the [contributing guide](CONTRIBUTING.md)**.
 
 A custom parser is a subclass of `parsers.Parser`. You must implement the following two methods
 
@@ -39,9 +39,9 @@ my_parser = MyParser(
         path="/train",
 )
 # parse it
-parser.parse(root=Path("./foo"))
-parser.upload(os.environ["DARWIN_API_KEY"])
-parser.upload_sample(os.environ["DARWIN_API_KEY"], n_samples=5)
+my_parser.parse(root=Path("./foo"))
+my_parser.upload(os.environ["DARWIN_API_KEY"])
+my_parser.upload_sample(os.environ["DARWIN_API_KEY"], n_samples=5)
 
 ```
 
