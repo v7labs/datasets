@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 ## Writing a Parser
 
-We provide several utilities to write a sharable parser. **You'll have to subclass parses.Parser`. An example is provided at `parsers.cifar10`. Before contributing please read the [contributing guide](CONTRIBUTING.md)**.
+We provide several utilities to write a sharable parser. **You'll have to subclass `parses.Parser`. An example is provided at `parsers.cifar10`. Before contributing please read the [contributing guide](CONTRIBUTING.md)**.
 
 A custom parser is a subclass of `parsers.Parser`. You must implement the following two methods
 
