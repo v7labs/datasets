@@ -1,3 +1,10 @@
+# vscode
+.vscode/
+images/
+annotations/
+*gz
+*zip
+cifar-10-batches-py/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
