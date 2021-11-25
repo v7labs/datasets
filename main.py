@@ -1,7 +1,6 @@
 from parsers.cifar.parser import CIFARParser
 from pathlib import Path
 import os
-from parsers.datatypes import *
 
 
 os.environ["DARWIN_BASE_URL"] = "http://localhost:4242/"

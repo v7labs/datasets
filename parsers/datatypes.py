@@ -94,6 +94,7 @@ class Annotation:
     name: str
 
     def add_data(self, data: AnnotationData) -> Annotation:
+        """Dynamically add a `AnnotationData` to `Annotation` using its converted name to underscore_case as field. To make this work we create a new dataclass each time."""
         attr: str = pattern.sub("_", data.__class__.__name__).lower()
         NewAnnotation = make_dataclass(
             "Annotation", [(attr, AnnotationData)], bases=(self.__class__,)
