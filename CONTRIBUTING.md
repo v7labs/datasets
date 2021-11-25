@@ -9,7 +9,7 @@ We have a set of guidelines that you should follow to ensure cohesion across eac
 To contribute with a new dataset you'll have to make a pull request (PR). Each dataset must have its directory inside `parsers`. For example, if I want to create a new parser for `imagenet`, I'll have to create a directory `parsers/imagenet`. The directory **must** have the following files
 
 .
-├── __init__.py
+├── `__init__.py`
 ├── parser.py
 └── README.md
 
