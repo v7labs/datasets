@@ -2,6 +2,8 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field, asdict, make_dataclass
 from typing import Any, List, Dict, Optional, Union
+
+# used to convert from CammelCase to underscore_case
 pattern: re.Pattern = re.compile(r"(?<!^)(?=[A-Z])")
 
 
@@ -93,8 +95,10 @@ class Annotation:
 
     def add_data(self, data: AnnotationData) -> Annotation:
         attr: str = pattern.sub("_", data.__class__.__name__).lower()
-        NewAnnotation =  make_dataclass('Annotation', [(attr, AnnotationData)], bases=(self.__class__,))
-        new_ann = NewAnnotation(**vars(self), **{attr : data})
+        NewAnnotation = make_dataclass(
+            "Annotation", [(attr, AnnotationData)], bases=(self.__class__,)
+        )
+        new_ann = NewAnnotation(**vars(self), **{attr: data})
         return new_ann
 
 
@@ -103,4 +107,3 @@ class ImageAnnotationFile:
     dataset: str
     image: Image
     annotations: List[Annotation]
-
