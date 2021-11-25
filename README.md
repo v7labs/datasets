@@ -39,9 +39,9 @@ my_parser = MyParser(
         path="/train",
 )
 # parse it
-parser.parse(root=Path("./foo"))
-parser.upload(os.environ["DARWIN_API_KEY"])
-parser.upload_sample(os.environ["DARWIN_API_KEY"], n_samples=5)
+my_parser.parse(root=Path("./foo"))
+my_parser.upload(os.environ["DARWIN_API_KEY"])
+my_parser.upload_sample(os.environ["DARWIN_API_KEY"], n_samples=5)
 
 ```
 
