@@ -1,6 +1,6 @@
 from __future__ import annotations
 import re
-from dataclasses import dataclass, field, asdict, make_dataclass
+from dataclasses import dataclass, make_dataclass
 from typing import Any, List, Dict, Optional, Union
 
 # used to convert from CammelCase to underscore_case

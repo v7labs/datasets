@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
+import json
 from pathlib import Path
-from typing import Any, List
+from typing import Any, Dict, Generator, List
 from abc import ABC
 from .datatypes import ImageAnnotationFile
 import darwin
@@ -8,7 +9,6 @@ import darwin.importer as importer
 from darwin.client import Client
 from darwin.importer import formats
 import itertools
-import tempfile
 
 
 class Parser(ABC):
@@ -77,9 +77,12 @@ class Parser(ABC):
             n_samples (int, optional): Number of image/annotation pairs you what to upload. Defaults to 10.
         """
         # get n_samples annotation files
-        annotations: List[Path] = list(
+        annotations_paths: List[Path] = list(
             itertools.islice(self.annotation_dir.glob("*.json"), n_samples)
         )
-        images: List[Path] = [self.images_dir / f"{x.stem}.png" for x in annotations]
 
-        self.upload_from_files(api_key, images, annotations)
+        annotations: List[Dict] = [json.load(ann_path.open('r')) for ann_path in annotations_paths]
+        images: List[Path] = [self.images_dir / Path(ann['image']['original_filename']) for ann in annotations]
+
+        # I am not closing the files pointers!!
+        self.upload_from_files(api_key, images, annotations_paths)
