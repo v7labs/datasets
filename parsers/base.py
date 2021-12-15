@@ -1,8 +1,12 @@
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 import json
 from pathlib import Path
 from typing import Any, Dict, Generator, List
 from abc import ABC
+import requests
+
+from requests.api import request
 from .datatypes import ImageAnnotationFile
 import darwin
 import darwin.importer as importer
@@ -29,6 +33,9 @@ class Parser(ABC):
             raise ValueError(f"path should be one of {self.ALLOWED_PATHS}")
 
         self.path = path
+
+        self.images_dir.mkdir(exist_ok=True, parents=True)
+        self.annotation_dir.mkdir(exist_ok=True, parents=True)
 
     @abstractmethod
     def parse_annotation(self, *args: Any, **kwargs: Any) -> ImageAnnotationFile:
@@ -59,9 +66,12 @@ class Parser(ABC):
         dataset_identifier = f"{client.default_team}/{self.dataset_name}"
         try:
             dataset = client.create_dataset(self.dataset_name)
-        except darwin.exceptions.NameTaken:
-            dataset = client.get_remote_dataset(dataset_identifier)
-        dataset.push(images, path=self.path)
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 422:
+                dataset = client.get_remote_dataset(dataset_identifier)
+            else:
+                print("boom")
+        # dataset.push(images, path=self.path)
         importer.import_annotations(
             dataset,
             formats.darwin.parse_file,
@@ -81,8 +91,13 @@ class Parser(ABC):
             itertools.islice(self.annotation_dir.glob("*.json"), n_samples)
         )
 
-        annotations: List[Dict] = [json.load(ann_path.open('r')) for ann_path in annotations_paths]
-        images: List[Path] = [self.images_dir / Path(ann['image']['original_filename']) for ann in annotations]
+        annotations: List[Dict] = [
+            json.load(ann_path.open("r")) for ann_path in annotations_paths
+        ]
+        images: List[Path] = [
+            self.images_dir / Path(ann["image"]["original_filename"])
+            for ann in annotations
+        ]
 
         # I am not closing the files pointers!!
         self.upload_from_files(api_key, images, annotations_paths)

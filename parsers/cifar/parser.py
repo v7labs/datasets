@@ -46,8 +46,10 @@ class CIFARParser(Parser):
 
             for file_name, ann, img in tqdm(zip(file_names, ann_stage, images_stage)):
                 file_name = Path(file_name.decode()).stem
-                ann_file = Path(self.annotation_dir / f"{file_name}.json")
-                img_file = Path(self.images_dir / f"{file_name}.png")
+                ann_file = Path(
+                    self.annotation_dir / f"{self.path}" / f"{file_name}.json"
+                )
+                img_file = Path(self.images_dir / f"{self.path}" / f"{file_name}.png")
 
                 with ann_file.open("w") as f:
                     json.dump(asdict(ann), f, indent=4)
