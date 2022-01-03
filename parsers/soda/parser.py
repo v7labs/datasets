@@ -51,8 +51,7 @@ class SODAParser:
         data = json.load(f)
         
         
-        for idx, file in tqdm(enumerate(data['images']), total=5000, desc='parsing'):
-            idx = idx+1 
+        for idx, file in tqdm(enumerate(data['images'], 1), total=5000, desc='parsing'):
             coor = []
             self.filename.append(file['file_name'].split('.')[0])
             for seq, an in enumerate(data["annotations"]):
