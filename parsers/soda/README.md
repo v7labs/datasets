@@ -14,7 +14,7 @@ import os
 parser = SODAParser(
     images_dir = 'path_to_image_dir/SSLAD-2d/labelled/train',
     annotation_dir = 'path_to_image_dir/SSLAD-2d/labelled/annotations',
-    dataset_name = soda10m,
+    dataset_name = 'soda10m',
 )
 
 #parse it 
