@@ -1,7 +1,7 @@
 # SODA10M Dataset
 
 ## Get the Dataset
-You can download the labeled dataset from this [link](https://drive.google.com/file/d/1oSJ0rbqNHLmlOOzpmQqXLDraCCQss4Q4/view?usp=sharing). The link contains both training and validation dataset with annotations. 
+You can download the labeled dataset from this [link](https://drive.google.com/file/d/1oSJ0rbqNHLmlOOzpmQqXLDraCCQss4Q4/view?usp=sharing). The link contains both the training and the validation datasets along with their annotations. 
 
 ## Usage
 
