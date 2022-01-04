@@ -5,7 +5,8 @@ You can download the labeled dataset from this [link](https://drive.google.com/f
 
 ## Usage
 
-```
+```python
+
 from parsers.soda.parser import SODAParser
 from pathlib import Path
 import os
